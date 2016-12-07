@@ -42,7 +42,6 @@ app.post('/ERP/Orders/', function (req, res) {
         date: new Date(),
         status: 'uncompleted'
     };
-    console.log("testing")
     //function for creating the query              
 
     connection.query('INSERT INTO Orders set ?', order, function (err, result) {
