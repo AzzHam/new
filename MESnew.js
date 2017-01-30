@@ -1,11 +1,6 @@
-//var uuid = require('node-uuid');
 var express = require('express');
 var app = express();
-//var http = require('http').Server(app);
 var mysql = require('mysql');
-//var bodyparser = require('body-parser');
-//var events = require('events');
-//var eventEmitter = new events.EventEmitter();
 var Request = require('request');
 var type = require('type-of-is');//used for debugging, shows the attribute of variables
 
@@ -16,8 +11,8 @@ app.use(bodyparser.json());
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '85412129',
-    database: 'fis_assignment4'
+    password: '***',
+    database: '***'
 });
 
 connection.connect();
@@ -64,12 +59,9 @@ var erpOrderToBom = function (id, model, quantity) {
 }
 
 
-//************************latest edit, change the integration point to DB*********************02/05
-//************************adding query from DB by evoking by Id from ERP**********************02/05
-
 
 app.post('/MES/Orders', function (request, response) {   //orders are being sent to /MES/Orders from ERP layer
-    // var warehouse = warehouseController.readWarehouse();
+
     var qry = request.query;      //only receives ID from ERP
     if (qry.hasOwnProperty('id')) {  //checks if ID is available
         //sends query to DB and receives the order details to make BOM and send it to warehouseindex.
