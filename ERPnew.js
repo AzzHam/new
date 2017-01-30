@@ -8,8 +8,6 @@ var uuid = require('uuid');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var Request = require('request');
-//requiring other servers 
-//var MES = require('./MESnew.js');
 
 app.use(bodyparser.urlencoded({ extended: true })); //support x-www-form-urlencoded
 app.use(bodyparser.json());
@@ -20,8 +18,8 @@ app.use(bodyparser.json());
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '85412129',
-    database: 'fis_assignment4',
+    password: '***',
+    database: '***',
     multipleStatements: true
 });
 connection.connect();
@@ -51,13 +49,13 @@ app.post('/ERP/Orders/', function (req, res) {
         }
             //if order saved in the database successfully, then MES should be informed to creat the BOM and check the warehouse
         else {
-            // console.log(result)
+            
             var Bomquery = '?id=' + order.id;
             var ErpToMesQuery = {
                 url: "http://localhost:2001/MES/Orders" + Bomquery,
                 method: "POST",
             }
-            // console.log(ErpToMesQuery);
+            
             Request(ErpToMesQuery, function (error, response, body) {
                 //some error handling!!
                 if (error) {
@@ -75,7 +73,7 @@ app.post('/ERP/Orders/', function (req, res) {
 
 
 app.get('/WarehouseOrder/', function (request, response) {
-    // var id = request.params.id;
+
     console.log('\n(ERP)Warehouse order received');
 
     var mat = {
@@ -285,7 +283,6 @@ app.delete('/ERP/Orders/:id', function (req, res) {
             else {
                 res.status(200).send('Back to orders /ERP/Orders/');
             }
-            //console.log('kakkaa');
 
         });
 
